@@ -8,24 +8,28 @@ RUN apk add --no-cache \
     sqlite \
     tzdata
 
-# ----- Crear directorio de trabajo -----
+# ----- Directorio de trabajo -----
 WORKDIR /home/node
 
-# ----- Instalar n8n versión estable y liviana -----
-RUN npm install -g n8n@1.10.0
+# ----- Instalar n8n versión estable -----
+RUN npm install -g n8n@1.120.0
 
-# ----- Ajustes de RAM -----
+# ----- Ajustes de RAM para Render Starter -----
 ENV NODE_OPTIONS="--max-old-space-size=256"
 
-# ----- Forzar que use el disco de Render -----
+# ----- Configurar ruta fija DEL DISCO en Render -----
+# Render monta el disco EXACTAMENTE en /home/node/.n8n
 ENV N8N_USER_FOLDER=/home/node/.n8n
+
+# Reparar permisos automáticamente
 ENV N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
 
-# ----- Crear carpeta si no existe -----
+# ----- Crear la carpeta para que Render pueda montarla -----
+# IMPORTANTE: no escribir nada dentro, solo crearla.
 RUN mkdir -p /home/node/.n8n && \
-    chown -R node:node /home/node/.n8n
+    chown -R node:node /home/node
 
-# Usar usuario node (NO root)
+# ----- Ejecutar como usuario "node" -----
 USER node
 
 EXPOSE 5678
