@@ -16,7 +16,7 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    environment: benchmarking
+    # Se eliminó la línea 'environment: benchmarking' para usar secretos de repositorio
 
     steps:
       - name: Checkout
