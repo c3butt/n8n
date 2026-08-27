@@ -3,7 +3,7 @@
 # Imagen oficial fijada a una versión estable
 # ============================================================
 
-FROM docker.n8n.io/n8nio/n8n:2.36.7
+FROM n8nio/n8n:2.36.7
 
 # ------------------------------------------------------------
 # Memoria
